@@ -16,11 +16,10 @@ public class HangmanServant extends HangmanPOA {
 
     public enum Status {
         NOT_REGISTERED((short) 1),
-        CHARACTER_BEFORE((short) 2),
-        CHARACTER_AFTER((short) 3),
-        GUESSED_CORRECTLY((short) 4),
-        GAME_OVER((short) 5),
-        WON_THE_GAME((short) 6);
+        GUESSED_CORRECTLY((short) 2),
+        GUESSED_WRONGLY((short)3),
+        GAME_OVER((short) 4),
+        WON_THE_GAME((short) 5);
 
         private short code;
 
@@ -116,18 +115,7 @@ public class HangmanServant extends HangmanPOA {
 
         int numberOfTries = bean.getNomOfTry() + 1;
         bean.setNomOfTry(numberOfTries);
-
-        if (guess < assignedRandomWord.charAt(index)) {
-            System.out.println(String.format("Try a character after %c character! Remaining tries: %s", guess, String.valueOf(NUM_OF_TRY - numberOfTries)));
-            return CHARACTER_AFTER.getCode();
-        }
-
-        if (guess > assignedRandomWord.charAt(index)) {
-            System.out.println(String.format("Try a character before %c character! Remaining tries: %s", guess, String.valueOf(NUM_OF_TRY - numberOfTries)));
-            return CHARACTER_BEFORE.getCode();
-        }
-
-        return -1;
+        return GUESSED_WRONGLY.getCode();
     }
 
     public boolean inPlay(String name) {
