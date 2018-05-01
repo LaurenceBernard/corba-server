@@ -47,13 +47,15 @@ public class HangmanServant extends HangmanPOA {
 
 
     public boolean start(String name) {
-        if (isUserRegistered(name))
-            return false;
-
         String word = randWord();
-        System.out.println(String.format("Magic word for %s is [ %s ]", name, word));
-        registeredStudent.put(name, new GameBean(word));
+        if (isUserRegistered(name)) {
+            registeredStudent.remove(name);
+            registeredStudent.put(name, new GameBean(word));
+        }else{
+            registeredStudent.put(name, new GameBean(word));
+        }
 
+        System.out.println(String.format("Magic word for %s is [ %s ]", name, word));
         return true;
     }
 
